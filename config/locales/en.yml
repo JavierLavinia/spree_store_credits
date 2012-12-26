@@ -15,3 +15,4 @@ en:
   was_fully_used: "was fully used"
   was_partially_used: "was partially used"
   cannot_edit_used: "Cannot be edited because it has been used"
+  less_than_minimum_validation: "Order's item total is less than the minimum allowed (%{minimum}) to use store credit."
