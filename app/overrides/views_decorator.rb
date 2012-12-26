@@ -31,3 +31,10 @@ Deface::Override.new(:virtual_path => "spree/admin/general_settings/edit",
 	<%= text_field_tag('use_store_credit_minimum', Spree::Config[:use_store_credit_minimum]) %>
   </p>",
                      :disabled => false)
+
+Deface::Override.new(
+  :virtual_path => "spree/users/show",
+  :name => "store_credits_account_my_orders",
+  :insert_after => "[data-hook='account_my_orders']",
+  :partial => "spree/users/store_credits",
+  :disabled => false)
