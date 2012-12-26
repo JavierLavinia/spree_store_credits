@@ -1,6 +1,6 @@
 Spree::Order.class_eval do
-  attr_accessible :store_credit_amount, :remove_store_credits
-  attr_accessor :store_credit_amount, :remove_store_credits
+  attr_accessible :store_credit_amount, :redeem_store_credits
+  attr_accessor :store_credit_amount
 
   # the check for user? below is to ensure we don't break the
   # admin app when creating a new order from the admin console
@@ -12,6 +12,18 @@ Spree::Order.class_eval do
 
   def store_credit_amount
     adjustments.store_credits.sum(:amount).abs
+  end
+
+  def redeem_store_credits
+    store_credit_amount > 0
+  end
+
+  def redeem_store_credits= value
+    @store_credit_amount = if value.to_i > 0 and self.user.present?
+      self.user.store_credits_total
+    else
+      0.0
+    end
   end
 
 

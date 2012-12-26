@@ -38,3 +38,10 @@ Deface::Override.new(
   :insert_after => "[data-hook='account_my_orders']",
   :partial => "spree/users/store_credits",
   :disabled => false)
+
+Deface::Override.new(:virtual_path => "spree/orders/edit",
+                     :name => "redeem_store_credits_field",
+                     :insert_after => "[data-hook='cart_buttons']",
+                     :partial => "spree/orders/redeem_store_credits",
+                     :disabled => false)
+

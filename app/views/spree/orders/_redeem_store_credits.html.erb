@@ -1,0 +1,7 @@
+<% if current_user and current_user.has_store_credit? %>
+<div>
+  <%= order_form.label :redeem_store_credits %><br />
+  <%= order_form.check_box :redeem_store_credits %>
+  <%= order_form.submit I18n.t(:apply) %>
+</div>
+<% end %>
