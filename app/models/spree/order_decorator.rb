@@ -11,7 +11,7 @@ Spree::Order.class_eval do
   validates_with StoreCreditMinimumValidator
 
   def store_credit_amount
-    adjustments.store_credits.sum(:amount).abs
+    @store_credit_amount ||= adjustments.store_credits.sum(:amount).abs
   end
 
   def redeem_store_credits
@@ -25,7 +25,6 @@ Spree::Order.class_eval do
       0.0
     end
   end
-
 
   # override core process payments to force payment present
   # in case store credits were destroyed by ensure_sufficient_credit
