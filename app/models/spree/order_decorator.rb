@@ -69,22 +69,24 @@ Spree::Order.class_eval do
 
   def consume_users_credit
     return unless completed?
-    credit_used = self.store_credit_amount
-
-    user.store_credits.each do |store_credit|
-      break if credit_used == 0
-      if store_credit.remaining_amount > 0
-        if store_credit.remaining_amount > credit_used
-          store_credit.remaining_amount -= credit_used
-          store_credit.save
-          credit_used = 0
-        else
-          credit_used -= store_credit.remaining_amount
-          store_credit.update_attribute(:remaining_amount, 0)
+    
+    if self.user.present?  
+      credit_used = self.store_credit_amount
+  
+      user.store_credits.each do |store_credit|
+        break if credit_used == 0
+        if store_credit.remaining_amount > 0
+          if store_credit.remaining_amount > credit_used
+            store_credit.remaining_amount -= credit_used
+            store_credit.save
+            credit_used = 0
+          else
+            credit_used -= store_credit.remaining_amount
+            store_credit.update_attribute(:remaining_amount, 0)
+          end
         end
       end
     end
-
   end
 
   # ensure that user has sufficient credits to cover adjustments
